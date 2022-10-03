@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="white">#FFFFFFFF</color>
+
+    <color name="dark">#2C3639</color>
+    <color name="teal_dark">#395B64</color>
+    <color name="teal_dark_light">#A5C9CA</color>
+    <color name="teal_light">#E7F6F2</color>
+    <color name="grey_500">#7E7E7E</color>
+    <color name="grey_600">#757575</color>
+    <color name="grey_700">#616161</color>
+    <color name="grey_800">#424242</color>
+</resources>

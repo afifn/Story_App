@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Story App</string>
+    <string name="errorPassword">Kata Sandi harus lebih dari 6 karakter</string>
+    <string name="errorEmail">Email salah</string>
+    <string name="email">Email</string>
+    <string name="password">Kata Sandi</string>
+    <string name="login">Masuk</string>
+    <string name="don_t_have_an_account">Tidak punya akun?</string>
+    <string name="sign_up">Daftar</string>
+    <string name="sign_in">Masuk</string>
+    <string name="desc_login">Masuk Untuk Melanjutkan</string>
+    <string name="register">Daftar</string>
+    <string name="desc_register">Daftar dan Bagikan Ceritamu</string>
+    <string name="name">Nama</string>
+    <string name="already_have_an_account">Sudah punya akun?</string>
+    <string name="login_success">Berhasil masuk</string>
+    <string name="input_email">Masukkan email</string>
+    <string name="input_password">Masukkan kata sandi</string>
+    <string name="home">Beranda</string>
+    <string name="story">Cerita</string>
+    <string name="profile">Profil</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="camera">Kamera</string>
+    <string name="gallery">Galeri</string>
+    <string name="upload">Unggah</string>
+    <string name="permission_denied">permission tidak diizinkan</string>
+    <string name="setting">Pengaturan</string>
+    <string name="logout">Keluar</string>
+    <string name="description">deskripsi</string>
+    <string name="are_you_sure">Apakah kamu yakin?</string>
+    <string name="message_dialog_logout">Kamu harus masuk untuk berbagi cerita</string>
+    <string name="yes">Ya</string>
+    <string name="no">Tidak</string>
+    <string name="logout_success">Berhasil keluar</string>
+</resources>

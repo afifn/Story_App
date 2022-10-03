@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="EditTextCustomView">
+        <attr name="hint" format="string"/>
+        <attr name="error" format="string"/>
+        <attr name="type" format="enum">
+            <enum name="text" value="0"/>
+            <enum name="password" value="1"/>
+            <enum name="email" value="2"/>
+            <enum name="textArea" value="3"/>
+        </attr>
+
+    </declare-styleable>
+
+</resources>

@@ -1,0 +1,35 @@
+<resources>
+    <string name="app_name">Story App</string>
+    <string name="errorPassword">Password must be more than 6 characters</string>
+    <string name="errorEmail">Email is not valid</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="login">Login</string>
+    <string name="don_t_have_an_account">Don\'t have an account?</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="sign_in">Sign In</string>
+    <string name="desc_login">Sign In to Continue</string>
+    <string name="register">Register</string>
+    <string name="desc_register">Sign Up and Share Your Story</string>
+    <string name="name">Name</string>
+    <string name="already_have_an_account">Already have an account?</string>
+    <string name="login_success">Login successful</string>
+    <string name="input_email">Input email</string>
+    <string name="input_password">Input password</string>
+    <string name="home">Home</string>
+    <string name="story">Story</string>
+    <string name="profile">Profile</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="camera">Camera</string>
+    <string name="gallery">Gallery</string>
+    <string name="upload">Upload</string>
+    <string name="permission_denied">permission not allowed</string>
+    <string name="setting">Setting</string>
+    <string name="logout">Logout</string>
+    <string name="description">description</string>
+    <string name="are_you_sure">Are you sure?</string>
+    <string name="message_dialog_logout">You need to login again to share your story</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="logout_success">Loguot successful</string>
+</resources>

@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.main.fragment.ProfileFragment">
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="match_parent"
+        android:layout_height="180dp"
+        android:layout_alignParentTop="true"
+        android:src="@drawable/bg_header" />
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/circleImageView"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_above="@+id/cardView2"
+        android:layout_alignStart="@+id/cardView2"
+        android:layout_alignEnd="@+id/cardView2"
+        android:layout_marginBottom="-32dp"
+        android:scaleType="centerCrop"
+        android:elevation="3dp"
+        android:src="@drawable/ava" />
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="16dp"
+        android:layout_marginTop="-16dp"
+        android:layout_marginHorizontal="20dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_below="@id/imageView">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="44dp"
+            android:paddingBottom="16dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="16dp"
+                android:fontFamily="@font/poppins_bold"
+                android:textAlignment="center"
+                android:textColor="@color/grey_800"
+                android:textSize="16sp"
+                tools:text="Afif Nor Yusuf" />
+
+            <Button
+                android:id="@+id/btn_setting"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/setting"
+                android:backgroundTint="@null"
+                android:textColor="@color/grey_800"
+                android:textAllCaps="false"
+                android:background="@android:color/transparent"
+                android:textAlignment="textStart"
+                android:drawableLeft="@drawable/ic_setting"
+                android:drawableRight="@drawable/ic_right"
+                android:drawableTint="@color/teal_dark"
+                app:layout_constraintTop_toBottomOf="@+id/tv_name"
+                tools:ignore="RtlHardcoded,UnusedAttribute" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_logout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/logout"
+                android:backgroundTint="@null"
+                android:textColor="@color/grey_800"
+                android:textAllCaps="false"
+                android:background="@android:color/transparent"
+                android:textAlignment="textStart"
+                android:drawableLeft="@drawable/ic_sign_out"
+                android:drawableRight="@drawable/ic_right"
+                android:drawableTint="@color/teal_dark"
+                app:layout_constraintTop_toBottomOf="@+id/tv_name"
+                tools:ignore="RtlHardcoded" />
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+
+</RelativeLayout>
