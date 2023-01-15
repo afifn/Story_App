@@ -33,4 +33,10 @@
     <string name="yes">Ya</string>
     <string name="no">Tidak</string>
     <string name="logout_success">Berhasil keluar</string>
+    <string name="retry">Ulangi</string>
+    <string name="maps">Peta</string>
+    <string name="share_loocation">Berbagi Lokasi</string>
+    <string name="location_message_activated">Perizinan lokasi belum diaktifkan</string>
+    <string name="failed_register">Registrasi gagal, harap coba lagi</string>
+    <string name="oops">Oops…</string>
 </resources>

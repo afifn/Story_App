@@ -1,44 +1,44 @@
-package com.afifny.storysub.api
+package com.afifny.storysub.data.remote.retrofit
 
-import com.afifny.storysub.model.StoryResponse
-import com.afifny.storysub.model.UserResponse
+import com.afifny.storysub.data.remote.response.StoryResponse
+import com.afifny.storysub.data.remote.response.UserResponse
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
-import retrofit2.Call
+import retrofit2.Response
 import retrofit2.http.*
 
 interface ApiService {
 
     @FormUrlEncoded
     @POST("register")
-    fun userRegister(
+    suspend fun userRegister(
         @Field("name") name: String,
         @Field("email") email: String,
         @Field("password") password: String
-    ):Call<UserResponse>
+    ): Response<UserResponse>
 
     @FormUrlEncoded
     @POST("login")
-    fun userLogin(
+    suspend fun userLogin(
         @Field("email") email: String,
         @Field("password") password: String
-    ):Call<UserResponse>
+    ): Response<UserResponse>
 
     @Multipart
     @POST("stories")
-    fun addStory(
+    suspend fun addStory(
         @Header("Authorization") auth: String,
         @Part("description") description: RequestBody,
         @Part photo: MultipartBody.Part,
-        @Part("lat") latitude: Double?,
-        @Part("lon") longitude: Double?
-    ):Call<StoryResponse>
+        @Part("lat") latitude: RequestBody?,
+        @Part("lon") longitude: RequestBody?
+    ): Response<StoryResponse>
 
     @GET("stories")
-    fun getAllStory(
+    suspend fun getAllStory(
         @Header("Authorization") auth: String,
         @Query("page") page: Int? = null,
         @Query("size") size: Int? = null,
         @Query("location") location: Int? = null
-    ):Call<StoryResponse>
+    ): Response<StoryResponse>
 }

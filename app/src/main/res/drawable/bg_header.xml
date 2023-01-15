@@ -6,8 +6,8 @@
         android:type="linear"
         android:startColor="@color/teal_dark_light"
         android:endColor="@color/teal_dark"
-        android:angle="90"/>
+        android:angle="90" />
     <corners
         android:bottomLeftRadius="20dp"
-        android:bottomRightRadius="20dp"/>
+        android:bottomRightRadius="20dp" />
 </shape>

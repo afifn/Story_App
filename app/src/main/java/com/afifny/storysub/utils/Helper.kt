@@ -1,6 +1,9 @@
 package com.afifny.storysub.utils
 
 import android.widget.TextView
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
+import okhttp3.ResponseBody
 import java.text.DateFormat
 import java.text.SimpleDateFormat
 import java.util.*
@@ -11,3 +14,6 @@ fun TextView.withLocalDateFormat(timestamp: String) {
     val formate = DateFormat.getDateInstance(DateFormat.FULL).format(date)
     this.text = formate
 }
+
+@Suppress("BlockingMethodInNonBlockingContext")
+suspend fun ResponseBody.stringSuspending() = withContext(Dispatchers.IO) { string() }

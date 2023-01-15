@@ -1,0 +1,114 @@
+# Unit testing
+1. RegisterViewModel
+ * Ketika register berhasil
+ - Memastikan actualValue tidak null
+ - Memastikan benar actualValue is Result.Success
+ - Memastikan responseMessage sama dengan (actualValue as Result.Success).data?.message 
+
+ * Ketika register gagal, email sudah terdaftar
+ - Memastikan benar actualValue is Result.Error
+ - Memastikan responseMessage sama dengan (actualValue as Result.Error).error
+
+2. LoginViewModel
+ * Ketika login berhasil
+ - Memastikan actualValue tidak null
+ - Memastikan benar actualValue is Result.Success
+ - Memastikan responseMessage sama dengan (actualValue as Result.Success).data?.message
+
+ * Ketika login gagal
+ - Memastikan benar actualValue is Result.Error
+ - Memastikan responseMessage sama dengan (actualValue as Result.Error).error
+
+3. MainViewMoodel
+ * Ketika getStory berhasil
+ - Memastikan actualStory tidak null
+ - Memastikan jumlah data sesuai yang diharapkan
+
+ * Ketika getStory data kosong
+ - Memastikan actualStory tidak null
+ - Memastikan data kosong
+
+4. MapsViewModel
+ * data story dengan lokasi berhasil dimuat
+ - Memastikan repository.getStoryLocation(toke) berhasil dipanggil
+ - Memastikan actualStory tidak null
+ - Memastikan benar actualStory is Result.Success
+ - Memastikan pesan response sama dengan (actualStory as Result.Success).data?.message
+
+ * data story dengan lokasi gagal dimuat
+ - Memastikan repository.getStoryLocation(token) berhasil dipanggil 
+ - Memastikan benar actualStory is Result.Error
+ - Memastikan pesan response sama dengan (actualStory as Result.Error).error)
+
+5. StoryViewModel
+ * Ketika upload story berhasil
+ - Memastikan actualStory data story tidak null
+ - Memastikan benar actualStory is Result.Success
+ - Memastikan pesan response sama dengan (actualStory as Result.Success).data?.message
+
+ * Ketika upload story gagal
+ - Memastikan benar actualStory is Result.Error
+ - Memastikan pesan response sama dengan (actualStory as Result.Error).error
+
+6. StoryRepository
+ * get data story tidak null
+ - Memastikan nilai data story tidak null
+
+ * Ketika get story dengan data yang memiliki lokasi lat dan lon
+ - Memastikan actualValue tidak null
+ - Memastikan benar actualValue.value is Result.Success
+ - Memastikan ukuran data dummy sama dengan data asli
+ - Memastikan benar data story memiliki latitude
+ - Memastikan benar data story memiliki longitude
+
+ * Ketika get data story kosong
+ - Memastikan data story tidak null
+ - Memastikan benar data kosong
+ - Memastikan ukuran data sesuai yang diharapkan
+
+ * Ketika berhasil upload data story
+ - Memastikan actualValue tidak null
+ - Memastikan response body sama dengan actualValue
+
+7. AuthRepository
+ * Ketika user berhasil register
+ - Memastikan actualValue tidak null
+ - Memastikan benar response error bernilai false
+ - Memastikan pesan response sama dengan actualValue
+
+ * Ketika user berhasil login
+ - Memastikan actualValue tidak null
+ - Memastikan benar response error bernilai false
+ - Memastikan pesan response sama dengan expectedResponse
+
+@MediumTest
+integration test
+
+8. HomeFragment
+ * Berhasil membuka halaman HomeFragment 
+ - Memastikan recyclerView tampil di layar
+ - Memastikan Lorem Ipsum tampil di layar
+ 
+ * Berhasil membuka halaman HomeFragment
+ - Memastikan tampil gambar file kosong di layar
+ 
+9. MapsFragment
+ * Berhasil membuka halaman MapsFragment
+ - Memastikan mapView tampil di layar
+
+@LargeTest 
+end-to-end test dan idling resources
+
+10. MainActivity
+ * Melihat data story
+ - Memastikan MainActivity telah terbuka 
+ - Memastikan recyclerView telah tampil
+ - Melakukan aksi scroll data
+ 
+ * Melihat detail informasi story
+ - Memastikan MainActivity telah terbuka 
+ - Memastikan recyclerView telah tampil 
+ - Memastikan terdapat EXTRA_DATA yang dibawa dari MainActivity
+ - Memastikan nama telah tampil
+ - Memastikan gambar story telah tampil
+ - Memastikan deskripsi telah tampil

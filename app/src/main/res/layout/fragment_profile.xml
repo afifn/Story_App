@@ -4,14 +4,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.main.fragment.ProfileFragment">
+    tools:context=".ui.main.fragment.profile.ProfileFragment">
 
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="match_parent"
         android:layout_height="180dp"
         android:layout_alignParentTop="true"
-        android:src="@drawable/bg_header" />
+        android:src="@drawable/bg_header"
+        tools:ignore="ContentDescription" />
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/circleImageView"
@@ -84,7 +85,7 @@
                 android:drawableRight="@drawable/ic_right"
                 android:drawableTint="@color/teal_dark"
                 app:layout_constraintTop_toBottomOf="@+id/tv_name"
-                tools:ignore="RtlHardcoded" />
+                tools:ignore="RtlHardcoded,UnusedAttribute" />
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 

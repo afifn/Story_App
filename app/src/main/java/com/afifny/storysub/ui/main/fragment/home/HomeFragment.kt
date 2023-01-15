@@ -1,38 +1,35 @@
 package com.afifny.storysub.ui.main.fragment.home
 
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.app.ActivityOptionsCompat
-import androidx.datastore.core.DataStore
-import androidx.datastore.preferences.core.Preferences
-import androidx.datastore.preferences.preferencesDataStore
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.paging.LoadState
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+import com.afifny.storysub.adapter.LoadingStateAdapter
 import com.afifny.storysub.adapter.StoryAdapter
+import com.afifny.storysub.data.remote.response.ListStoryItem
 import com.afifny.storysub.databinding.FragmentHomeBinding
-import com.afifny.storysub.model.ListStoryItem
-import com.afifny.storysub.model.UserPref
-import com.afifny.storysub.ui.main.MainViewModel
 import com.afifny.storysub.ui.main.detail.StoryDetailActivity
-import com.afifny.storysub.viewModel.ViewModelFactory
+import com.afifny.storysub.viewModel.MainViewModelFactory
 
-private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "auth")
-
-class HomeFragment : Fragment(), StoryAdapter.OnClickItem {
-    private lateinit var viewModel: MainViewModel
+class HomeFragment : Fragment(), StoryAdapter.OnClickItem, SwipeRefreshLayout.OnRefreshListener {
     private lateinit var binding: FragmentHomeBinding
     private lateinit var adapter: StoryAdapter
+    private lateinit var viewModel: MainViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentHomeBinding.inflate(layoutInflater, container, false)
+        binding =
+            FragmentHomeBinding.inflate(LayoutInflater.from(requireContext()), container, false)
         return binding.root
     }
 
@@ -41,41 +38,63 @@ class HomeFragment : Fragment(), StoryAdapter.OnClickItem {
 
         adapter = StoryAdapter()
         setupViewModel()
+        setupRC()
+        setupRefreshLayout()
+    }
+
+    private fun setupRefreshLayout() {
+        binding.swipe.setOnRefreshListener(this)
     }
 
     private fun setupViewModel() {
-        viewModel = ViewModelProvider(this, ViewModelFactory(UserPref.getInstance(requireContext().dataStore)))[MainViewModel::class.java]
-        viewModel.getUserLogin().observe(viewLifecycleOwner) {
-            user ->
-            if (user.token.isNotEmpty()){
-                viewModel.getListStory(user.token)
-            }
-        }
-        viewModel.isLoad.observe(viewLifecycleOwner) {
-            showLoading(it)
-        }
-        viewModel.listStory.observe(viewLifecycleOwner) {
-            list ->
-            setupRC(list)
+        viewModel = ViewModelProvider(
+            this,
+            MainViewModelFactory(requireContext())
+        )[MainViewModel::class.java]
+        viewModel.story.observe(viewLifecycleOwner) { data ->
+            adapter.submitData(lifecycle, data)
         }
     }
 
-    private fun showLoading(b: Boolean?) {
-        binding.progressBar.visibility = if (b == true) View.VISIBLE else View.GONE
-    }
-
-    private fun setupRC(list: List<ListStoryItem>) {
+    private fun setupRC() {
         val layoutManager = LinearLayoutManager(requireContext())
         binding.recyclerView.layoutManager = layoutManager
         binding.recyclerView.setHasFixedSize(true)
-        adapter.setAdapter(list)
-        binding.recyclerView.adapter = adapter
+        binding.recyclerView.adapter = adapter.withLoadStateFooter(
+            footer = LoadingStateAdapter {
+                adapter.retry()
+            }
+        )
         adapter.setOnClick(this)
+        adapter.addLoadStateListener { loadStates ->
+            if ((loadStates.source.refresh is LoadState.NotLoading && loadStates.append.endOfPaginationReached && adapter.itemCount < 1) || loadStates.source.refresh is LoadState.Error) {
+                binding.apply {
+                    recyclerView.isVisible = false
+                    viewError.root.isVisible = true
+                }
+            } else {
+                binding.apply {
+                    recyclerView.isVisible = true
+                    viewError.root.isVisible = false
+                }
+            }
+            binding.swipe.isRefreshing = loadStates.source.refresh is LoadState.Loading
+        }
     }
 
-     override fun onClickItem(story: ListStoryItem, position: Int, optionsCompat: ActivityOptionsCompat) {
-         val intent = Intent(requireContext(), StoryDetailActivity::class.java)
-         intent.putExtra(StoryDetailActivity.EXTRA_DATA, story)
-         startActivity(intent, optionsCompat.toBundle())
-     }
+    override fun onClickItem(story: ListStoryItem, optionsCompat: ActivityOptionsCompat) {
+        val intent = Intent(requireContext(), StoryDetailActivity::class.java)
+        intent.putExtra(StoryDetailActivity.EXTRA_DATA, story)
+        startActivity(intent, optionsCompat.toBundle())
+    }
+
+    override fun onStart() {
+        super.onStart()
+        setupViewModel()
+    }
+
+    override fun onRefresh() {
+        binding.swipe.isRefreshing = false
+        adapter.refresh()
+    }
 }

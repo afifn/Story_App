@@ -17,17 +17,18 @@ import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.preferencesDataStore
 import androidx.lifecycle.ViewModelProvider
+import com.afifny.storysub.data.local.preference.UserPref
 import com.afifny.storysub.databinding.ActivitySplashBinding
-import com.afifny.storysub.model.UserPref
 import com.afifny.storysub.ui.login.LoginActivity
 import com.afifny.storysub.ui.main.MainActivity
-import com.afifny.storysub.ui.main.MainViewModel
+import com.afifny.storysub.viewModel.DataStoreViewModel
 import com.afifny.storysub.viewModel.ViewModelFactory
 
 private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "auth")
+
 @SuppressLint("CustomSplashScreen")
 class SplashActivity : AppCompatActivity() {
-    private lateinit var viewModel: MainViewModel
+    private lateinit var viewModel: DataStoreViewModel
     private lateinit var binding: ActivitySplashBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -38,13 +39,14 @@ class SplashActivity : AppCompatActivity() {
         setupView()
         playAnimate()
         Handler(Looper.getMainLooper()).postDelayed({
-           auth()
-        },3000)
+            auth()
+        }, 3000)
     }
 
     private fun playAnimate() {
         val imgAlpha = ObjectAnimator.ofFloat(binding.imgLogo, View.ALPHA, 1F).setDuration(1000)
-        val titleApp = ObjectAnimator.ofFloat(binding.tvAppName, View.TRANSLATION_Y, 0F, -50F).setDuration(1500)
+        val titleApp = ObjectAnimator.ofFloat(binding.tvAppName, View.TRANSLATION_Y, 0F, -50F)
+            .setDuration(1500)
 
         AnimatorSet().apply {
             playTogether(imgAlpha, titleApp)
@@ -66,16 +68,18 @@ class SplashActivity : AppCompatActivity() {
     }
 
     private fun auth() {
-        viewModel = ViewModelProvider(this, ViewModelFactory(UserPref.getInstance(dataStore)))[MainViewModel::class.java]
-        viewModel.getUserLogin().observe(this) {
-            login ->
+        viewModel = ViewModelProvider(
+            this,
+            ViewModelFactory(UserPref.getInstance(dataStore))
+        )[DataStoreViewModel::class.java]
+        viewModel.getUserLogin().observe(this) { login ->
             if (login.token.isEmpty()) {
                 startActivity(Intent(this, LoginActivity::class.java))
-                overridePendingTransition(0,0)
+                overridePendingTransition(0, 0)
                 finish()
             } else {
                 startActivity(Intent(this, MainActivity::class.java))
-                overridePendingTransition(0,0)
+                overridePendingTransition(0, 0)
                 finish()
             }
         }

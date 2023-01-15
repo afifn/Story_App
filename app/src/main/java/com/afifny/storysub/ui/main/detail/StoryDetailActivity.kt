@@ -3,14 +3,15 @@ package com.afifny.storysub.ui.main.detail
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.afifny.storysub.R
+import com.afifny.storysub.data.remote.response.ListStoryItem
 import com.afifny.storysub.databinding.ActivityStoryDetailBinding
-import com.afifny.storysub.model.ListStoryItem
 import com.afifny.storysub.utils.withLocalDateFormat
 import com.bumptech.glide.Glide
 
 class StoryDetailActivity : AppCompatActivity() {
     private lateinit var binding: ActivityStoryDetailBinding
-    companion object{
+
+    companion object {
         const val EXTRA_DATA: String = "data"
     }
 
@@ -44,13 +45,4 @@ class StoryDetailActivity : AppCompatActivity() {
         onBackPressed()
         return super.onSupportNavigateUp()
     }
-//    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-//        return when (item.itemId) {
-//            android.R.id.home -> {
-//                finish()
-//                true
-//            }
-//            else -> super.onOptionsItemSelected(item)
-//        }
-//    }
 }

@@ -17,6 +17,7 @@
             app:cardCornerRadius="16dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
+
             <ImageView
                 android:id="@+id/img_story"
                 android:layout_width="match_parent"
@@ -39,7 +40,8 @@
             android:textColor="@color/grey_800"
             android:maxLines="2"
             android:ellipsize="end"
-            tools:text="lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et"/>
+            tools:text="lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et" />
+
         <TextView
             android:id="@+id/tv_name"
             android:layout_width="match_parent"
@@ -50,6 +52,6 @@
             android:textSize="14sp"
             android:fontFamily="@font/poppins"
             android:textColor="@color/grey_600"
-            tools:text="Afif Nor Y"/>
+            tools:text="Afif Nor Y" />
     </LinearLayout>
 </androidx.cardview.widget.CardView>

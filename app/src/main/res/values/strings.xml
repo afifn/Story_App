@@ -31,5 +31,12 @@
     <string name="message_dialog_logout">You need to login again to share your story</string>
     <string name="yes">Yes</string>
     <string name="no">No</string>
-    <string name="logout_success">Loguot successful</string>
+    <string name="logout_success">Logout successful</string>
+    <string name="retry">Retry</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="maps">Maps</string>
+    <string name="share_loocation">Share location</string>
+    <string name="location_message_activated">Please activated location</string>
+    <string name="failed_register">Registration failed, please try again</string>
+    <string name="oops">Oops…</string>
 </resources>

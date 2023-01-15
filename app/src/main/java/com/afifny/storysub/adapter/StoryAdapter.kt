@@ -5,40 +5,34 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.app.ActivityOptionsCompat
 import androidx.core.util.Pair
+import androidx.paging.PagingDataAdapter
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.afifny.storysub.R
+import com.afifny.storysub.data.remote.response.ListStoryItem
 import com.afifny.storysub.databinding.ItemListBinding
-import com.afifny.storysub.model.ListStoryItem
 import com.afifny.storysub.ui.main.fragment.home.HomeFragment
 import com.bumptech.glide.Glide
 
-class StoryAdapter: RecyclerView.Adapter<StoryAdapter.ViewHolder>() {
-    private val listStoryItem = ArrayList<ListStoryItem>()
+class StoryAdapter : PagingDataAdapter<ListStoryItem, StoryAdapter.ViewHolder>(DIFF_CALLBACK) {
     private var onClickItem: OnClickItem? = null
 
     override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): ViewHolder {
-        val binding = ItemListBinding.inflate(LayoutInflater.from(viewGroup.context), viewGroup, false)
+        val binding =
+            ItemListBinding.inflate(LayoutInflater.from(viewGroup.context), viewGroup, false)
         return ViewHolder(binding)
     }
 
     override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
-        onClickItem?.let { viewHolder.bind(listStoryItem[position], it) }
-    }
-
-    override fun getItemCount(): Int {
-        return listStoryItem.size
-    }
-
-
-    fun setAdapter(list: List<ListStoryItem>?) {
-        if (list != null) {
-            listStoryItem.clear()
-            listStoryItem.addAll(list)
+        val data = getItem(position)
+        if (data != null) {
+            viewHolder.bind(data)
         }
     }
 
-    inner class ViewHolder(private val binding: ItemListBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(story: ListStoryItem, onClickItem: OnClickItem) {
+    inner class ViewHolder(private val binding: ItemListBinding) :
+        RecyclerView.ViewHolder(binding.root) {
+        fun bind(story: ListStoryItem) {
             binding.apply {
                 tvName.text = story.name
                 tvDescription.text = story.description
@@ -56,15 +50,31 @@ class StoryAdapter: RecyclerView.Adapter<StoryAdapter.ViewHolder>() {
                         Pair(binding.tvName, "name"),
                         Pair(binding.tvDescription, "description")
                     )
-                val position: Int = adapterPosition
-                onClickItem.onClickItem(story, position, optionsCompat)
+                onClickItem?.onClickItem(story, optionsCompat)
             }
         }
     }
-    interface OnClickItem{
-        fun onClickItem(story: ListStoryItem, position: Int, optionsCompat: ActivityOptionsCompat)
+
+    interface OnClickItem {
+        fun onClickItem(story: ListStoryItem, optionsCompat: ActivityOptionsCompat)
     }
+
     fun setOnClick(onClickItem: HomeFragment) {
         this.onClickItem = onClickItem
+    }
+
+    companion object {
+        val DIFF_CALLBACK = object : DiffUtil.ItemCallback<ListStoryItem>() {
+            override fun areItemsTheSame(oldItem: ListStoryItem, newItem: ListStoryItem): Boolean {
+                return oldItem.id == newItem.id
+            }
+
+            override fun areContentsTheSame(
+                oldItem: ListStoryItem,
+                newItem: ListStoryItem
+            ): Boolean {
+                return oldItem == newItem
+            }
+        }
     }
 }

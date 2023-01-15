@@ -1,22 +1,23 @@
-package com.afifny.storysub.model
+package com.afifny.storysub.data.local.preference
 
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.stringPreferencesKey
+import com.afifny.storysub.data.remote.response.LoginResult
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 
-class UserPref private constructor(private val dataStore: DataStore<Preferences>){
+class UserPref private constructor(private val dataStore: DataStore<Preferences>) {
     companion object {
         @Volatile
-        private var INSTANCE: UserPref?= null
+        private var INSTANCE: UserPref? = null
         private val NAME_KEY = stringPreferencesKey("name")
         private val TOKEN = stringPreferencesKey("token")
         private val USER_ID = stringPreferencesKey("state")
 
-        fun getInstance(dataStore: DataStore<Preferences>): UserPref{
-            return INSTANCE?: synchronized(this) {
+        fun getInstance(dataStore: DataStore<Preferences>): UserPref {
+            return INSTANCE ?: synchronized(this) {
                 val instance = UserPref(dataStore)
                 INSTANCE = instance
                 instance
@@ -25,8 +26,7 @@ class UserPref private constructor(private val dataStore: DataStore<Preferences>
     }
 
     fun getUser(): Flow<LoginResult> {
-        return dataStore.data.map {
-            pref ->
+        return dataStore.data.map { pref ->
             LoginResult(
                 pref[NAME_KEY] ?: "",
                 pref[USER_ID] ?: "",
@@ -44,8 +44,7 @@ class UserPref private constructor(private val dataStore: DataStore<Preferences>
     }
 
     suspend fun logout() {
-        dataStore.edit {
-            preference ->
+        dataStore.edit { preference ->
             preference[TOKEN] = ""
         }
     }
